@@ -57,5 +57,7 @@ public class Client {
             System.out.println("Client bị gián đoạn!");
             AppLogger.logError("Lỗi kết nối hoặc gửi dữ liệu",e);
         }
+        //tesst github
+        System.currentTimeMillis();
     }
 }
