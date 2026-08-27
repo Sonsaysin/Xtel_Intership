@@ -1,6 +1,6 @@
 import java.io.*;
 import java.net.Socket;
-
+// Xử lý client
 public class ClientHandler extends Thread {
 
     private final Socket socket;
@@ -30,12 +30,12 @@ public class ClientHandler extends Thread {
                     new InputStreamReader(
                             socket.getInputStream()
                     )
-            );
+            ); // nhận client
 
             writer = new PrintWriter(
                     socket.getOutputStream(),
                     true
-            );
+            ); // gửi dữ liệu từ server về client
 
             // Nhận username
             writer.println("Enter username:");

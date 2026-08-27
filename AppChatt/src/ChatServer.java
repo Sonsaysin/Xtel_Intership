@@ -2,7 +2,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+// nhận client
 public class ChatServer {
 
     private static final int PORT = 6666  ;
@@ -27,7 +27,7 @@ public class ChatServer {
                 System.out.println(
                         "Client connected: "
                                 + socket.getInetAddress()
-                );
+                );  //Lấy địa chỉ Ip của client vừa kết nối
 
                 ClientHandler handler =
                         new ClientHandler(

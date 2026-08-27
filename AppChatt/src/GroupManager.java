@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GroupManager {
+    // Quản lý các Client
 
     private static final int MAX_USERS = 3;
 
