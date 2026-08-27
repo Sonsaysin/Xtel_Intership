@@ -3,7 +3,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-
+//kết nối tới Server, gửi dữ liệu lên Server và nhận dữ liệu từ Server.
     private static final String HOST = "localhost";
     private static final int PORT = 6666;
 

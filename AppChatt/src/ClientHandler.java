@@ -73,9 +73,10 @@ public class ClientHandler extends Thread {
             }
         }
     }
-
+    // Xử lý message và các command từ Client
     private void handleMessage(String message) {
 
+        // Client yêu cầu rời phòng
         if (message.equalsIgnoreCase("/leave")) {
 
             try {
@@ -86,6 +87,7 @@ public class ClientHandler extends Thread {
             return;
         }
 
+        // Client yêu cầu xem danh sách người dùng
         if (message.equalsIgnoreCase("/users")) {
 
             groupManager.showUsers(this);
@@ -93,7 +95,7 @@ public class ClientHandler extends Thread {
             return;
         }
 
-        // Chỉ người trong phòng mới được chat
+        // Client chưa được vào phòng thì không được chat
         if (!inRoom) {
 
             send(
@@ -103,6 +105,7 @@ public class ClientHandler extends Thread {
             return;
         }
 
+        // Gửi message đến các Client khác trong phòng
         groupManager.broadcast(
                 "[" + username + "] " + message,
                 this
