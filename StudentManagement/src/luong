@@ -1,0 +1,36 @@
+                ┌──────────────┐
+                │    Main      │
+                │  điểm bắt đầu│
+                └──────┬───────┘
+                       │
+                       ▼
+                ┌──────────────┐
+                │   Message    │
+                │    i18n      │
+                └──────┬───────┘
+                       │
+                 đọc ngôn ngữ
+                       ▼
+      messages_vi_VN.properties
+      messages_en_US.properties
+
+
+Main
+  │
+  │ tạo
+  ▼
+StudentService ◄──────── StudentInput
+       │                      │
+       │                      │ nhận / xử lý input
+       ▼                      ▼
+   List<Student>          Scanner
+       │
+       ▼
+    Student
+   /       \
+  ▼         ▼
+Regular   International
+Student    Student
+       │
+       ▼
+    Payable
