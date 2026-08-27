@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseManagement {
-    private List<Course> courses = new ArrayList<>();
+    private final List<Course> courses = new ArrayList<>();
 
     void addCourse(){
         try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
@@ -19,7 +19,7 @@ public class CourseManagement {
             System.out.println("Enter fee: ");
             float fee = Float.parseFloat(br.readLine());
 
-            System.out.printf("Enter tags: (separated by comma) ");
+            System.out.println("Enter tags: (separated by comma) ");
             String tagInput = br.readLine();
             List<String> tags = new ArrayList<>();
             String[]  tagArr = tagInput.split(",");
@@ -33,20 +33,20 @@ public class CourseManagement {
 
             Course course = new Course(id,title,durationHours,fee,tags);
             courses.add(course);
-            System.out.printf("Course added successfully !!!!");
+            System.out.println("Course added successfully !!!!");
 
         }catch (NumberFormatException e){
-            System.out.printf("Duration hour and fee must be valid numbers");
+            System.out.println("Duration hour and fee must be valid numbers");
         }catch (IllegalArgumentException e){
-            System.out.printf("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }catch (IOException ex){
-            System.out.printf("Error reading input: " + ex.getMessage());
+            System.out.println("Error reading input: " + ex.getMessage());
         }
     }
 
     void saveCoursesToFile(){
         if (courses.isEmpty()){
-            System.out.printf("No course to save!");
+            System.out.println("No course to save!");
             return;
         }
 

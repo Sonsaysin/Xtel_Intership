@@ -23,7 +23,7 @@ class RandomNumber implements Runnable {
             while (running) {
                 int number = random.nextInt(100);
 
-                br.write(String.valueOf(number));
+                br.write(String.valueOf(number)); //Chuyển number từ kiểu số (int) thành String, sau đó ghi chuỗi đó vào file.
                 br.newLine();
 
                 // Đẩy dữ liệu từ buffer xuống file

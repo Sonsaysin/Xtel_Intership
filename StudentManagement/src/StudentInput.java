@@ -3,15 +3,23 @@ import model.RegularStudent;
 import model.Student;
 import service.StudentService;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class StudentInput {
 
     private final Scanner scanner = new Scanner(System.in);
     private final StudentService service;
+    private final ResourceBundle messages;
 
     public StudentInput(StudentService service) {
         this.service = service;
+
+        messages = ResourceBundle.getBundle(
+                "resource.messages",
+                new Locale("vi","VN")
+        );
     }
 
     // ==================== NHẬP SỐ NGUYÊN ====================
@@ -21,7 +29,9 @@ public class StudentInput {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.print("Vui lòng nhập số nguyên: ");
+                System.out.print(
+                        messages.getString("input.integer")
+                );
             }
         }
     }
@@ -33,7 +43,9 @@ public class StudentInput {
             try {
                 return Double.parseDouble(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.print("Vui lòng nhập số: ");
+                System.out.print(
+                        messages.getString("input.number")
+                );
             }
         }
     }
@@ -42,37 +54,64 @@ public class StudentInput {
 
     public void addStudent() {
 
-        System.out.println("\n===== THÊM SINH VIÊN =====");
-        System.out.println("1. Regular Student");
-        System.out.println("2. International Student");
-        System.out.print("Chọn loại sinh viên: ");
+        System.out.println(
+                messages.getString("student.add.title")
+        );
+
+        System.out.println(
+                messages.getString("student.type.regular")
+        );
+
+        System.out.println(
+                messages.getString("student.type.international")
+        );
+
+        System.out.print(
+                messages.getString("student.type.choose")
+        );
 
         int type = getInt();
 
         if (type != 1 && type != 2) {
-            System.out.println("Loại sinh viên không hợp lệ.");
+            System.out.println(
+                    messages.getString("student.type.invalid")
+            );
             return;
         }
 
-        System.out.print("ID: ");
+        System.out.print(
+                messages.getString("input.id")
+        );
         String id = scanner.nextLine();
 
-        System.out.print("Họ tên: ");
+        System.out.print(
+                messages.getString("input.fullname")
+        );
         String fullname = scanner.nextLine();
 
-        System.out.print("Tuổi: ");
+        System.out.print(
+                messages.getString("input.age")
+        );
         int age = getInt();
 
-        System.out.print("Ngành học: ");
+        System.out.print(
+                messages.getString("input.major")
+        );
         String major = scanner.nextLine();
 
-        System.out.print("GPA: ");
+        System.out.print(
+                messages.getString("input.gpa")
+        );
         double gpa = getDouble();
 
-        System.out.print("Mã sinh viên: ");
+        System.out.print(
+                messages.getString("input.studentId")
+        );
         String studentId = scanner.nextLine();
 
-        System.out.print("Số tín chỉ: ");
+        System.out.print(
+                messages.getString("input.credits")
+        );
         int numberOfCredits = getInt();
 
         Student student;
@@ -91,7 +130,10 @@ public class StudentInput {
 
         } else {
 
-            System.out.print("Phí dịch vụ: ");
+            System.out.print(
+                    messages.getString("input.serviceFee")
+            );
+
             double serviceFee = getDouble();
 
             student = new InternationalStudent(
@@ -108,43 +150,61 @@ public class StudentInput {
 
         service.addStudent(student);
 
-        System.out.println("Thêm sinh viên thành công.");
+        System.out.println(
+                messages.getString("student.add.success")
+        );
     }
 
     // ==================== XÓA SINH VIÊN ====================
 
     public void removeStudent() {
 
-        System.out.println("\n===== XÓA SINH VIÊN =====");
+        System.out.println(
+                messages.getString("student.remove.title")
+        );
 
-        System.out.print("Nhập mã sinh viên: ");
+        System.out.print(
+                messages.getString("input.studentId")
+        );
+
         String studentId = scanner.nextLine();
 
         Student student = service.findStudent(studentId);
 
         if (student == null) {
-            System.out.println("Không tìm thấy sinh viên.");
+            System.out.println(
+                    messages.getString("student.notFound")
+            );
             return;
         }
 
         service.removeStudent(studentId);
 
-        System.out.println("Xóa sinh viên thành công.");
+        System.out.println(
+                messages.getString("student.remove.success")
+        );
     }
 
     // ==================== TÌM SINH VIÊN ====================
 
     public void findStudent() {
 
-        System.out.println("\n===== TÌM SINH VIÊN =====");
+        System.out.println(
+                messages.getString("student.find.title")
+        );
 
-        System.out.print("Nhập mã sinh viên: ");
+        System.out.print(
+                messages.getString("input.studentId")
+        );
+
         String studentId = scanner.nextLine();
 
         Student student = service.findStudent(studentId);
 
         if (student == null) {
-            System.out.println("Không tìm thấy sinh viên.");
+            System.out.println(
+                    messages.getString("student.notFound")
+            );
             return;
         }
 
@@ -159,12 +219,29 @@ public class StudentInput {
 
         do {
 
-            System.out.println("\n===== DANH SÁCH SINH VIÊN =====");
-            System.out.println("1. Regular Student");
-            System.out.println("2. International Student");
-            System.out.println("3. Tất cả sinh viên");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
+            System.out.println(
+                    messages.getString("student.list.title")
+            );
+
+            System.out.println(
+                    messages.getString("student.type.regular")
+            );
+
+            System.out.println(
+                    messages.getString("student.type.international")
+            );
+
+            System.out.println(
+                    messages.getString("student.list.all")
+            );
+
+            System.out.println(
+                    messages.getString("menu.back")
+            );
+
+            System.out.print(
+                    messages.getString("menu.choose")
+            );
 
             choice = getInt();
 
@@ -186,7 +263,9 @@ public class StudentInput {
                     break;
 
                 default:
-                    System.out.println("Lựa chọn không hợp lệ.");
+                    System.out.println(
+                            messages.getString("menu.invalid")
+                    );
             }
 
         } while (choice != 0);
@@ -196,21 +275,34 @@ public class StudentInput {
 
     public void payTuition() {
 
-        System.out.println("\n===== THANH TOÁN HỌC PHÍ =====");
+        System.out.println(
+                messages.getString("tuition.title")
+        );
 
-        System.out.print("Nhập mã sinh viên: ");
+        System.out.print(
+                messages.getString("input.studentId")
+        );
+
         String studentId = scanner.nextLine();
 
         Student student = service.findStudent(studentId);
 
         if (student == null) {
-            System.out.println("Không tìm thấy sinh viên.");
+            System.out.println(
+                    messages.getString("student.notFound")
+            );
             return;
         }
 
-        System.out.println("Học phí: " + student.calculateTuition());
+        System.out.println(
+                messages.getString("tuition.amount")
+                        + student.calculateTuition()
+        );
 
-        System.out.print("Nhập số tiền thanh toán: ");
+        System.out.print(
+                messages.getString("tuition.pay.amount")
+        );
+
         double amount = getDouble();
 
         student.payTuition(amount);

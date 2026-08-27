@@ -22,7 +22,7 @@ public class ByLamdba {
                     bw.write(String.valueOf(number));
                     bw.newLine();
 
-                    bw.flush();
+                    bw.flush();// đẩy toàn bộ dữ liệu còn nằm trong buffer xuống file
 
                     System.out.println("Đã ghi: "  + number);
                     Thread.sleep(1000);
@@ -36,7 +36,7 @@ public class ByLamdba {
 
         Thread thread = new Thread(task);
 
-        thread.start();
+        thread.run();
         Scanner sc = new Scanner(System.in);
         System.out.println("Gõ stop để dừng lại ");
         while(true){
