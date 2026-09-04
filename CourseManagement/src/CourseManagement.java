@@ -1,163 +1,429 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseManagement {
+
     private final List<Course> courses = new ArrayList<>();
 
-    void addCourse(){
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
+    // Đường dẫn dùng chung
+    private final Path dataDir = Path.of("data");
+    private final Path file = dataDir.resolve("courses_data.txt");
+
+    private final BufferedReader inputReader;
+
+    public CourseManagement(BufferedReader inputReader) {
+        this.inputReader = inputReader;
+    }
+
+
+    // =========================================================
+    // ADD COURSE
+    // =========================================================
+
+    void addCourse() {
+
+        CourseLogger.add("Start adding course.");
+
+        try {
+
             System.out.println("Enter Id: ");
-            String id = br.readLine();
+            String id = inputReader.readLine();
 
             System.out.println("Enter title: ");
-            String title = br.readLine();
+            String title = inputReader.readLine();
 
             System.out.println("Enter DurationHours: ");
-            float durationHours = Float.parseFloat(br.readLine());
+            float durationHours =
+                    Float.parseFloat(inputReader.readLine());
 
             System.out.println("Enter fee: ");
-            float fee = Float.parseFloat(br.readLine());
+            float fee =
+                    Float.parseFloat(inputReader.readLine());
 
-            System.out.println("Enter tags: (separated by comma) ");
-            String tagInput = br.readLine();
+            System.out.println(
+                    "Enter tags: (separated by comma) "
+            );
+
+            String tagInput = inputReader.readLine();
+
             List<String> tags = new ArrayList<>();
-            String[]  tagArr = tagInput.split(",");
-            for (String tag : tagArr){
+
+            String[] tagArr = tagInput.split(",");
+
+            for (String tag : tagArr) {
+
                 String cleanTag = tag.trim();
 
-                if (!cleanTag.isEmpty()){
+                if (!cleanTag.isEmpty()) {
                     tags.add(cleanTag);
                 }
             }
 
-            Course course = new Course(id,title,durationHours,fee,tags);
+            Course course = new Course(
+                    id,
+                    title,
+                    durationHours,
+                    fee,
+                    tags
+            );
+
             courses.add(course);
-            System.out.println("Course added successfully !!!!");
 
-        }catch (NumberFormatException e){
-            System.out.println("Duration hour and fee must be valid numbers");
-        }catch (IllegalArgumentException e){
-            System.out.println("Error: " + e.getMessage());
-        }catch (IOException ex){
-            System.out.println("Error reading input: " + ex.getMessage());
-        }
-    }
-
-    void saveCoursesToFile(){
-        if (courses.isEmpty()){
-            System.out.println("No course to save!");
-            return;
-        }
-
-        File file = new File("src/courses_data.bat");
-
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
-            for (Course course : courses){
-                String tags = String.join("|", course.getTags());
-
-                bw.write(course.getId() + " | " +
-                        course.getTitle() + " | " +
-                        course.getDurationHours() + " | " +
-                        course.getFee() + " | " +
-                        tags
-                );
-
-                bw.newLine();
-            }
-            System.out.println("Courses saved successfully! ");
-        }catch (Exception e){
-            System.out.printf("Error: " + e.getMessage());
-        }
-    }
-
-    void readAndDisplay(){
-        File file = new File("src/courses_data.bat");
-
-        if (!file.exists()) {
+            CourseLogger.add(
+                    "Added course: ID=" + course.getId()
+            );
 
             System.out.println(
-                    "File not found: courses_data.bat"
+                    "Course added successfully."
+            );
+
+        } catch (Exception e) {
+
+            // Ghi vào add_course.txt + error.txt
+            CourseLogger.addError(
+                    "Failed to add course.",
+                    e
+            );
+
+            System.out.println(
+                    "Error: " + e.getMessage()
+            );
+        }
+    }
+
+
+    // =========================================================
+    // SAVE COURSES
+    // =========================================================
+
+    void saveCoursesToFile() {
+
+        CourseLogger.save(
+                "Start saving courses."
+        );
+
+        if (courses.isEmpty()) {
+
+            CourseLogger.save(
+                    "No courses to save."
+            );
+
+            System.out.println(
+                    "No course to save!"
             );
 
             return;
         }
 
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            String line;
-            System.out.println("===== COURSRE LIST =====");
+        try {
 
-            while ((line = br.readLine()) != null){
-                if (line .trim().isEmpty()){
-                    continue;
+            Files.createDirectories(dataDir);
+
+            try (BufferedWriter bw =
+                         Files.newBufferedWriter(file)) {
+
+                for (Course course : courses) {
+
+                    if (course.getTags() == null ||
+                            course.getTags().isEmpty()) {
+
+                        System.out.println(
+                                "Course " +
+                                        course.getId() +
+                                        " has no tags!"
+                        );
+
+                        CourseLogger.save(
+                                "WARNING: Course ID=" +
+                                        course.getId() +
+                                        " has no tags and was skipped."
+                        );
+
+                        continue;
+                    }
+
+                    String tags =
+                            String.join(
+                                    "|",
+                                    course.getTags()
+                            );
+
+                    bw.write(
+                            course.getId() + " | " +
+                                    course.getTitle() + " | " +
+                                    course.getDurationHours() + " | " +
+                                    course.getFee() + " | " +
+                                    tags
+                    );
+
+                    bw.newLine();
                 }
-
-                String[] data = line.split(",", 5);
-
-                if (data.length != 5){
-                    System.out.println("Invalid data: " + line);
-                    continue;
-                }
-                System.out.println("--------------------------------------------------");
-                System.out.println("ID: " + data[0]);
-                System.out.println("Title: " + data[1]);
-                System.out.println("Duration: " + data[2]);
-                System.out.println("Fee: " + data[3]);
-                System.out.println("Tags: " + data[4].replace("|",","));
-                System.out.println("--------------------------------------------------");
             }
-        }catch (IOException e){
-            System.out.println("Error: " + e.getMessage());
+
+            CourseLogger.save(
+                    "Saved " +
+                            courses.size() +
+                            " courses to " +
+                            file
+            );
+
+            System.out.println(
+                    "Courses saved successfully!"
+            );
+
+        } catch (Exception e) {
+
+            // Ghi vào save_course.txt + error.txt
+            CourseLogger.saveError(
+                    "Failed to save courses to file: " +
+                            file,
+                    e
+            );
+
+            System.out.println(
+                    "Error: " + e.getMessage()
+            );
         }
     }
 
-    void searchCoursesToFile() {
+
+    // =========================================================
+    // READ AND DISPLAY
+    // =========================================================
+
+    void readAndDisplay() {
+
+        CourseLogger.read(
+                "Start reading courses from file."
+        );
+
+        if (!Files.exists(file)) {
+
+            CourseLogger.read(
+                    "Read failed. File not found: " +
+                            file
+            );
+
+            System.out.println(
+                    "File not found: " + file
+            );
+
+            return;
+        }
+
         try (BufferedReader br =
-                     new BufferedReader(new InputStreamReader(System.in))) {
+                     Files.newBufferedReader(file)) {
 
-            System.out.print("Enter tag to search: ");
+            String line;
 
-            String searchTag = br.readLine().trim();
+            System.out.println(
+                    "===== COURSE LIST ====="
+            );
+
+            while ((line = br.readLine()) != null) {
+
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                String[] data =
+                        line.split(
+                                "\\s*\\|\\s*",
+                                5
+                        );
+
+                if (data.length != 5) {
+
+                    System.out.println(
+                            "Invalid data: " + line
+                    );
+
+                    CourseLogger.read(
+                            "Invalid course data: " +
+                                    line
+                    );
+
+                    continue;
+                }
+
+                List<String> tags =
+                        List.of(
+                                data[4].split("\\|")
+                        );
+
+                Course course = new Course(
+                        data[0],
+                        data[1],
+                        Float.parseFloat(data[2]),
+                        Float.parseFloat(data[3]),
+                        tags
+                );
+
+                CourseLogger.read(
+                        "Read course from file: ID=" +
+                                course.getId()
+                );
+
+                System.out.println(course);
+            }
+
+        } catch (Exception e) {
+
+            // Ghi vào read_course.txt + error.txt
+            CourseLogger.readError(
+                    "Failed to read courses from file: " +
+                            file,
+                    e
+            );
+
+            System.out.println(
+                    "Error: " + e.getMessage()
+            );
+        }
+    }
+
+
+    // =========================================================
+    // SEARCH COURSE
+    // =========================================================
+
+    void searchCoursesToFile() {
+
+        CourseLogger.search(
+                "Start searching course."
+        );
+
+        try {
+
+            System.out.print(
+                    "Enter tag to search: "
+            );
+
+            String searchTag =
+                    inputReader.readLine().trim();
+
+            CourseLogger.search(
+                    "Searching for tag=" +
+                            searchTag
+            );
+
+            if (!Files.exists(file)) {
+
+                System.out.println(
+                        "File not found: " + file
+                );
+
+                CourseLogger.search(
+                        "Search failed. File not found: " +
+                                file
+                );
+
+                return;
+            }
 
             boolean found = false;
 
-            for (Course course : courses) {
+            try (BufferedReader fileReader =
+                         Files.newBufferedReader(file)) {
 
-                List<String> tags = course.getTags();
+                String line;
 
-                for (String tag : tags) {
+                while ((line =
+                        fileReader.readLine()) != null) {
 
-                    if (tag.equalsIgnoreCase(searchTag)) {
+                    if (line.trim().isEmpty()) {
+                        continue;
+                    }
 
-                        System.out.println("-------------------------");
+                    String[] data =
+                            line.split(
+                                    "\\s*\\|\\s*",
+                                    5
+                            );
 
-                        System.out.println("ID: " + course.getId());
+                    if (data.length != 5) {
 
-                        System.out.println("Title: " + course.getTitle());
+                        CourseLogger.search(
+                                "Invalid data skipped: " +
+                                        line
+                        );
 
-                        System.out.println("Duration Hours: " + course.getDurationHours());
+                        continue;
+                    }
 
-                        System.out.println("Fee: $" + course.getFee());
+                    List<String> tags =
+                            List.of(
+                                    data[4].split("\\|")
+                            );
 
-                        System.out.println("Tags: " + course.getTags());
+                    for (String tag : tags) {
 
-                        found = true;
+                        if (tag.equalsIgnoreCase(
+                                searchTag)) {
 
-                        // Course already found
-                        break;
+                            Course course =
+                                    new Course(
+                                            data[0],
+                                            data[1],
+                                            Float.parseFloat(
+                                                    data[2]
+                                            ),
+                                            Float.parseFloat(
+                                                    data[3]
+                                            ),
+                                            tags
+                                    );
+
+                            System.out.println(
+                                    course
+                            );
+
+                            CourseLogger.search(
+                                    "Found course ID=" +
+                                            course.getId() +
+                                            " with tag=" +
+                                            searchTag
+                            );
+
+                            found = true;
+
+                            break;
+                        }
                     }
                 }
             }
 
             if (!found) {
-                System.out.println("NOT_FOUND");
+
+                System.out.println(
+                        "NOT_FOUND"
+                );
+
+                CourseLogger.search(
+                        "No course found with tag=" +
+                                searchTag
+                );
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+
+            // Ghi vào search_course.txt + error.txt
+            CourseLogger.searchError(
+                    "Error while searching course from file.",
+                    e
+            );
 
             System.out.println(
-                    "Error reading input: " + e.getMessage()
+                    "Error: " + e.getMessage()
             );
         }
     }
 }
+
+
+
+
+

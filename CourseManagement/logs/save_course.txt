@@ -1,0 +1,8 @@
+Sep 03, 2026 5:54:58 PM CourseLogger save
+INFO: Start saving courses.
+Sep 03, 2026 5:54:58 PM CourseLogger save
+INFO: Saved 1 courses to data/courses_data.txt
+Sep 04, 2026 8:51:31 AM CourseLogger save
+INFO: Start saving courses.
+Sep 04, 2026 8:51:31 AM CourseLogger save
+INFO: Saved 1 courses to data/courses_data.txt

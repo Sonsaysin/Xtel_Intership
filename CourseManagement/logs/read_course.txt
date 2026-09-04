@@ -1,0 +1,8 @@
+Sep 04, 2026 8:50:22 AM CourseLogger read
+INFO: Start reading courses from file.
+Sep 04, 2026 8:50:22 AM CourseLogger read
+INFO: Read course from file: ID=001
+Sep 04, 2026 8:51:39 AM CourseLogger read
+INFO: Start reading courses from file.
+Sep 04, 2026 8:51:39 AM CourseLogger read
+INFO: Read course from file: ID=002

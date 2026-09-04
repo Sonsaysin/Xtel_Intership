@@ -1,40 +1,70 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+
     public static void main(String[] args) {
-        CourseManagement courseManagement = new CourseManagement();
-        try(BufferedReader br =
-                    new BufferedReader(
-                            new InputStreamReader(System.in))){
-            while (true){
-                System.out.println();
-                System.out.println("============== MENU ==============");
-                System.out.println("1. Add Course");
-                System.out.println("2. Save Courses to File");
-                System.out.println("3. Read and Display Courses");
-                System.out.println("4. Search Course by Tags");
-                System.out.println("5. Exit");
-                System.out.println("==================================");
 
-                System.out.println("Choice: ");
-                String choice = br.readLine();
+        try (BufferedReader reader =
+                     new BufferedReader(
+                             new InputStreamReader(System.in))) {
 
-                switch (choice){
-                    case "1" -> courseManagement.addCourse();
-                    case "2" -> courseManagement.saveCoursesToFile();
-                    case "3" -> courseManagement.readAndDisplay();
-                    case "4" -> courseManagement.searchCoursesToFile();
-                    case "5" -> {
-                        System.out.println("Goodbye!");
+            CourseManagement courseManagement =
+                    new CourseManagement(reader);
+
+            while (true) {
+
+                System.out.println("\n===== COURSE MANAGEMENT =====");
+                System.out.println("1. Add course");
+                System.out.println("2. Save courses");
+                System.out.println("3. Read and display courses");
+                System.out.println("4. Search course by tag");
+                System.out.println("0. Exit");
+                System.out.print("Choose: ");
+
+                String choice = reader.readLine();
+
+                switch (choice) {
+
+                    case "1":
+                        courseManagement.addCourse();
+                        break;
+
+                    case "2":
+                        courseManagement.saveCoursesToFile();
+                        break;
+
+                    case "3":
+                        courseManagement.readAndDisplay();
+                        break;
+
+                    case "4":
+                        courseManagement.searchCoursesToFile();
+                        break;
+
+                    case "0":
+                        System.out.println("Program exited.");
                         return;
-                    }
-                    default -> System.out.println("Invalid choice !!!!!!!!");
+
+                    default:
+                        System.out.println(
+                                "Invalid choice!"
+                        );
                 }
             }
-        }catch (IOException e){
-            System.out.println("Error: " + e.getMessage());
+
+        } catch (Exception e) {
+
+            CourseLogger.error(
+                    "Unexpected error in Main.",
+                    e
+            );
+
+            System.out.println(
+                    "Application error: " +
+                            e.getMessage()
+            );
         }
     }
 }
+

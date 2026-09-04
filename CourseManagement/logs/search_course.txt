@@ -1,0 +1,6 @@
+Sep 04, 2026 8:51:54 AM CourseLogger search
+INFO: Start searching course.
+Sep 04, 2026 8:51:56 AM CourseLogger search
+INFO: Searching for tag=001
+Sep 04, 2026 8:51:56 AM CourseLogger search
+INFO: No course found with tag=001

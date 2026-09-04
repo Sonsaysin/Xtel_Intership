@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
+
     private String id;
     private String title;
     private float durationHours;
@@ -8,14 +10,20 @@ public class Course {
     private List<String> tags;
 
     public Course() {
+        this.tags = new ArrayList<>();
     }
 
-    public Course(String id, String title, float durationHours, float fee, List<String> tags) {
+    public Course(String id, String title, float durationHours,
+                  float fee, List<String> tags) {
+
         this.id = id;
         setTitle(title);
         setDurationHours(durationHours);
         setFee(fee);
-        this.tags = tags;
+
+        this.tags = tags != null
+                ? new ArrayList<>(tags)
+                : new ArrayList<>();
     }
 
     public String getId() {
@@ -31,9 +39,12 @@ public class Course {
     }
 
     public void setTitle(String title) {
-        if (title == null || title.trim().length() < 5){
-            throw new IllegalArgumentException("Title must constant at least 5 character");
+        if (title == null || title.trim().length() < 5) {
+            throw new IllegalArgumentException(
+                    "Title must contain at least 5 characters"
+            );
         }
+
         this.title = title;
     }
 
@@ -42,9 +53,12 @@ public class Course {
     }
 
     public void setDurationHours(float durationHours) {
-        if (durationHours <= 0){
-            throw new IllegalArgumentException("duration hour must be greater than 0");
+        if (durationHours <= 0) {
+            throw new IllegalArgumentException(
+                    "Duration hour must be greater than 0"
+            );
         }
+
         this.durationHours = durationHours;
     }
 
@@ -53,9 +67,12 @@ public class Course {
     }
 
     public void setFee(float fee) {
-        if (fee <= 50){
-            throw new IllegalArgumentException("fee must be greater than 50$");
+        if (fee <= 50) {
+            throw new IllegalArgumentException(
+                    "Fee must be greater than $50"
+            );
         }
+
         this.fee = fee;
     }
 
@@ -64,6 +81,20 @@ public class Course {
     }
 
     public void setTags(List<String> tags) {
-        this.tags = tags;
+        this.tags = tags != null
+                ? new ArrayList<>(tags)
+                : new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "-------------------------\n" +
+                "ID: " + id + "\n" +
+                "Title: " + title + "\n" +
+                "Duration: " + durationHours + "\n" +
+                "Fee: " + fee + "\n" +
+                "Tags: " + String.join(", ", tags) + "\n" +
+                "-------------------------";
     }
 }
+

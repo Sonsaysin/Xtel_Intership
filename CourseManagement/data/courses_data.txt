@@ -1,0 +1,1 @@
+002 | SQL Programming | 500.0 | 6000000.0 | MySQL| SQLServer
