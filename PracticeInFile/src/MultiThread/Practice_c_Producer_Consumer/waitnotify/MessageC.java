@@ -1,19 +1,19 @@
 package MultiThread.Practice_c_Producer_Consumer.waitnotify;
 
 public class MessageC {
-    private int n;
-    private String content;
+    private int messageId;
+    private String messageContent;
 
-    public MessageC(int n, String content) {
-        this.n = n;
-        this.content = content;
+    public MessageC(int messageId, String messageContent) {
+        this.messageId = messageId;
+        this.messageContent = messageContent;
     }
 
     @Override
     public String toString() {
-        return "Message{" +
-                "n=" + n +
-                ", content='" + content + '\'' +
+        return "MessageC{" +
+                "messageId=" + messageId +
+                ", messageContent='" + messageContent + '\'' +
                 '}';
     }
 }

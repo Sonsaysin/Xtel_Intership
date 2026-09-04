@@ -1,5 +1,7 @@
 package MultiThread.Practice_c_Producer_Consumer.waitnotify;
 
+import MultiThread.Practice_c_Producer_Consumer.waitnotify.logger.QueueLogger;
+
 public class Producer implements Runnable {
 
     private final MessageQueue messageQueue;
@@ -11,30 +13,26 @@ public class Producer implements Runnable {
     @Override
     public void run() {
 
-        int id = 1;
+        int messageId = 1;
 
         try {
 
             while (true) {
 
                 MessageC messageC = new MessageC(
-                        id,
-                        "Message number " + id
+                        messageId,
+                        "Message number " + messageId
                 );
 
                 // Đưa Message vào Queue
                 messageQueue.put(messageC);
 
-                id++;
+                messageId++;
 
-                // Producer định kỳ tạo Message
-                Thread.sleep(1000);
             }
 
-        } catch (InterruptedException e) {
-
-            Thread.currentThread().interrupt();
-
+        } catch (Exception e) {
+            QueueLogger.error(e);
             System.out.println("Producer đã dừng.");
         }
     }

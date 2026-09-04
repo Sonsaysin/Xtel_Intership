@@ -1,5 +1,7 @@
 package MultiThread.Practice_c_Producer_Consumer.waitnotify;
 
+import MultiThread.Practice_c_Producer_Consumer.waitnotify.logger.QueueLogger;
+
 public class Consumer implements Runnable {
 
     private final MessageQueue messageQueue;
@@ -22,15 +24,10 @@ public class Consumer implements Runnable {
                 System.out.println(
                         "[CONSUMER] Đang xử lý: " + messageC
                 );
-
-                // Giả lập xử lý mất 2 giây
-                Thread.sleep(2000);
             }
 
-        } catch (InterruptedException e) {
-
-            Thread.currentThread().interrupt();
-
+        } catch (Exception e) {
+            QueueLogger.error(e);
             System.out.println("Consumer đã dừng.");
         }
     }

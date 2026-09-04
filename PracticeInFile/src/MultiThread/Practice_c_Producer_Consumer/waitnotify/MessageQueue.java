@@ -1,61 +1,64 @@
 package MultiThread.Practice_c_Producer_Consumer.waitnotify;
 
+import MultiThread.Practice_c_Producer_Consumer.waitnotify.logger.QueueLogger;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class MessageQueue {
-    private Queue<MessageC> queue = new LinkedList<>();
+    private Queue<MessageC> messageCQueue = new LinkedList<>();
     private int capacity;
 
     public MessageQueue(int capacity) {
         this.capacity = capacity;
     }
 
-    public synchronized void put(MessageC messageC)
-            throws InterruptedException {
+    public void put(MessageC messageC)
+            throws Exception {
 
         // Nếu Queue đầy thì Producer phải chờ
-        while (queue.size() == capacity) {
+        synchronized (messageCQueue) {
+            while (messageCQueue.size() == capacity) {
 
-            System.out.println("[QUEUE] FULL -> Producer đang chờ...");
+                QueueLogger.full();
+                messageCQueue.wait();
+            }
 
-            wait();
+            // Thêm Message vào Queue
+            messageCQueue.add(messageC);
+
+            System.out.println(
+                    "[PRODUCER] Đã thêm: " + messageC
+                            + " | Queue size: " + messageCQueue.size()
+            );
+
+            // Báo cho Consumer biết Queue đã có Message
+            messageCQueue.notify();
         }
-
-        // Thêm Message vào Queue
-        queue.offer(messageC);
-
-        System.out.println(
-                "[PRODUCER] Đã thêm: " + messageC
-                        + " | Queue size: " + queue.size()
-        );
-
-        // Báo cho Consumer biết Queue đã có Message
-        notifyAll();
     }
 
-    public synchronized MessageC take()
+    public MessageC take()
             throws InterruptedException {
+        synchronized (messageCQueue) {
+            // Nếu Queue rỗng thì Consumer phải chờ
+            while (messageCQueue.isEmpty()) {
+                QueueLogger.empty();
 
-        // Nếu Queue rỗng thì Consumer phải chờ
-        while (queue.isEmpty()) {
+                messageCQueue.wait();
+            }
 
-            System.out.println("[QUEUE] EMPTY -> Consumer đang chờ...");
+            // Lấy Message ra
+            MessageC messageC = messageCQueue.poll();
 
-            wait();
+            System.out.println(
+                    "[CONSUMER] Đã lấy: " + messageC
+                            + " | Queue size: " + messageCQueue.size()
+            );
+
+            // Báo cho Producer biết Queue đã có chỗ trống
+            messageCQueue.notify();
+
+            return messageC;
         }
-
-        // Lấy Message ra
-        MessageC messageC = queue.poll();
-
-        System.out.println(
-                "[CONSUMER] Đã lấy: " + messageC
-                        + " | Queue size: " + queue.size()
-        );
-
-        // Báo cho Producer biết Queue đã có chỗ trống
-        notifyAll();
-
-        return messageC;
     }
 }
