@@ -1,0 +1,34 @@
+Sep 05, 2026 8:40:50 AM logger.ChatLogger chat
+INFO: User son joined the chat room
+Sep 05, 2026 8:41:02 AM logger.ChatLogger chat
+INFO: User khang joined the chat room
+Sep 05, 2026 8:41:14 AM logger.ChatLogger chat
+
+INFO: User tu joined the chat roomSep 05, 2026 8:45:04 AM logger.ChatLogger chat
+INFO: Room full. User min added to waiting queue
+Sep 05, 2026 8:47:37 AM logger.ChatLogger chat
+INFO: tu disconnected.
+Sep 05, 2026 8:47:37 AM logger.ChatLogger chat
+INFO: User tu left the chat room
+Sep 05, 2026 8:47:37 AM logger.ChatLogger chat
+INFO: User min moved from waiting queue to active room
+Sep 05, 2026 9:10:55 AM logger.ChatLogger chat
+INFO: User son joined the chat room
+Sep 05, 2026 9:10:59 AM logger.ChatLogger chat
+INFO: User minh joined the chat room
+Sep 05, 2026 9:11:02 AM logger.ChatLogger chat
+INFO: User long joined the chat room
+Sep 05, 2026 9:11:09 AM logger.ChatLogger chat
+INFO: Room full. User khang added to waiting queue
+Sep 05, 2026 9:12:02 AM logger.ChatLogger chat
+INFO: User son left the chat room
+Sep 05, 2026 9:12:02 AM logger.ChatLogger chat
+INFO: User khang moved from waiting queue to active room
+Sep 05, 2026 9:12:03 AM logger.ChatLogger chat
+INFO: User minh left the chat room
+Sep 05, 2026 9:12:03 AM logger.ChatLogger chat
+INFO: User long left the chat room
+Sep 05, 2026 9:12:04 AM logger.ChatLogger chat
+INFO: User khang left the chat room
+Sep 05, 2026 9:12:04 AM logger.ChatLogger chat
+INFO: User null left the waiting queue

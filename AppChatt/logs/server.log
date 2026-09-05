@@ -1,0 +1,38 @@
+Sep 05, 2026 8:40:36 AM logger.ChatLogger server
+INFO: Server started on port 6666
+Sep 05, 2026 8:40:45 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 8:40:50 AM logger.ChatLogger server
+INFO: User connected:son
+Sep 05, 2026 8:40:58 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 8:41:02 AM logger.ChatLogger server
+INFO: User connected:khang
+Sep 05, 2026 8:41:11 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 8:41:14 AM logger.ChatLogger server
+INFO: User connected:tu
+Sep 05, 2026 8:44:57 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 8:45:04 AM logger.ChatLogger server
+INFO: User connected:min
+Sep 05, 2026 9:10:37 AM logger.ChatLogger server
+INFO: Server started on port 6666
+Sep 05, 2026 9:10:44 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 9:10:48 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 9:10:51 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 9:10:55 AM logger.ChatLogger server
+INFO: User connected:son
+Sep 05, 2026 9:10:59 AM logger.ChatLogger server
+INFO: User connected:minh
+Sep 05, 2026 9:11:02 AM logger.ChatLogger server
+INFO: User connected:long
+Sep 05, 2026 9:11:07 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1
+Sep 05, 2026 9:11:09 AM logger.ChatLogger server
+INFO: User connected:khang
+Sep 05, 2026 9:11:27 AM logger.ChatLogger server
+INFO: Client connected: /127.0.0.1

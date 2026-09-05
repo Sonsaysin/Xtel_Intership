@@ -1,0 +1,90 @@
+Sep 05, 2026 11:08:51 AM logger.QueueLogger empty
+INFO: [QUEUE] EMPTY -> Consumer đang chờ...
+Sep 05, 2026 11:08:51 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=1, messageContent='Message number 1'} | Queue size: 0
+Sep 05, 2026 11:08:51 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=2, messageContent='Message number 2'} | Queue size: 0
+Sep 05, 2026 11:08:51 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=3, messageContent='Message number 3'} | Queue size: 0
+Sep 05, 2026 11:08:51 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=4, messageContent='Message number 4'} | Queue size: 0
+Sep 05, 2026 11:08:52 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=5, messageContent='Message number 5'} | Queue size: 0
+Sep 05, 2026 11:08:52 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=6, messageContent='Message number 6'} | Queue size: 0
+Sep 05, 2026 11:08:52 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=7, messageContent='Message number 7'} | Queue size: 0
+Sep 05, 2026 11:08:52 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=8, messageContent='Message number 8'} | Queue size: 0
+Sep 05, 2026 11:09:04 AM logger.QueueLogger empty
+INFO: [QUEUE] EMPTY -> Consumer đang chờ...
+Sep 05, 2026 11:09:04 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=1, messageContent='Message number 1'} | Queue size: 0
+Sep 05, 2026 11:09:05 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=2, messageContent='Message number 2'} | Queue size: 0
+Sep 05, 2026 11:09:05 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=3, messageContent='Message number 3'} | Queue size: 0
+Sep 05, 2026 11:09:05 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=4, messageContent='Message number 4'} | Queue size: 0
+Sep 05, 2026 11:09:05 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=5, messageContent='Message number 5'} | Queue size: 0
+Sep 05, 2026 11:09:05 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=6, messageContent='Message number 6'} | Queue size: 0
+Sep 05, 2026 11:09:06 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=7, messageContent='Message number 7'} | Queue size: 0
+Sep 05, 2026 11:09:06 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=8, messageContent='Message number 8'} | Queue size: 0
+Sep 05, 2026 11:09:06 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=9, messageContent='Message number 9'} | Queue size: 0
+Sep 05, 2026 11:09:06 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=10, messageContent='Message number 10'} | Queue size: 0
+Sep 05, 2026 11:09:07 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=11, messageContent='Message number 11'} | Queue size: 0
+Sep 05, 2026 11:09:07 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=12, messageContent='Message number 12'} | Queue size: 0
+Sep 05, 2026 11:09:07 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=13, messageContent='Message number 13'} | Queue size: 0
+Sep 05, 2026 11:09:07 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=14, messageContent='Message number 14'} | Queue size: 0
+Sep 05, 2026 11:09:07 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=15, messageContent='Message number 15'} | Queue size: 0
+Sep 05, 2026 11:09:08 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=16, messageContent='Message number 16'} | Queue size: 0
+Sep 05, 2026 11:09:08 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=17, messageContent='Message number 17'} | Queue size: 0
+Sep 05, 2026 11:09:08 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=18, messageContent='Message number 18'} | Queue size: 0
+Sep 05, 2026 11:09:08 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=19, messageContent='Message number 19'} | Queue size: 0
+Sep 05, 2026 11:09:08 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=20, messageContent='Message number 20'} | Queue size: 0
+Sep 05, 2026 11:09:09 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=21, messageContent='Message number 21'} | Queue size: 0
+Sep 05, 2026 11:09:09 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=22, messageContent='Message number 22'} | Queue size: 0
+Sep 05, 2026 11:09:09 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=23, messageContent='Message number 23'} | Queue size: 0
+Sep 05, 2026 11:09:09 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=24, messageContent='Message number 24'} | Queue size: 0
+Sep 05, 2026 11:09:09 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=25, messageContent='Message number 25'} | Queue size: 0
+Sep 05, 2026 11:09:10 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=26, messageContent='Message number 26'} | Queue size: 0
+Sep 05, 2026 11:09:10 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=27, messageContent='Message number 27'} | Queue size: 0
+Sep 05, 2026 11:09:10 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=28, messageContent='Message number 28'} | Queue size: 0
+Sep 05, 2026 11:09:10 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=29, messageContent='Message number 29'} | Queue size: 0
+Sep 05, 2026 11:09:10 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=30, messageContent='Message number 30'} | Queue size: 0
+Sep 05, 2026 11:09:11 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=31, messageContent='Message number 31'} | Queue size: 0
+Sep 05, 2026 11:09:11 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=32, messageContent='Message number 32'} | Queue size: 0
+Sep 05, 2026 11:09:11 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=33, messageContent='Message number 33'} | Queue size: 0
+Sep 05, 2026 11:09:11 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=34, messageContent='Message number 34'} | Queue size: 0
+Sep 05, 2026 11:09:11 AM logger.QueueLogger remove
+INFO: [CONSUMER] REMOVE -> Message{messageId=35, messageContent='Message number 35'} | Queue size: 0

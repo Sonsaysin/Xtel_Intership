@@ -25,6 +25,7 @@ public class Producer implements Runnable{
                 messageQueue.put(messageC);
 
                 messageId++;
+                Thread.sleep(200);
 
             }
 
