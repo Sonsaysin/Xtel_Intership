@@ -8,14 +8,27 @@ public class CourseManagement {
 
     private final List<Course> courses = new ArrayList<>();
 
-    // Đường dẫn dùng chung
+    // =========================================================
+    // FILE PATH
+    // =========================================================
+
     private final Path dataDir = Path.of("data");
     private final Path file = dataDir.resolve("courses_data.txt");
 
     private final BufferedReader inputReader;
 
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+
     public CourseManagement(BufferedReader inputReader) {
+
         this.inputReader = inputReader;
+
+        // Khi chương trình chạy:
+        // Đọc dữ liệu cũ từ file vào List
+        loadCoursesFromFile();
     }
 
 
@@ -25,55 +38,68 @@ public class CourseManagement {
 
     void addCourse() {
 
-        CourseLogger.add("Start adding course.");
+        CourseLogger.add(
+                "Start adding course."
+        );
 
         try {
 
             System.out.println("Enter Id: ");
-            String id = inputReader.readLine();
+            String id =
+                    inputReader.readLine().trim();
 
             System.out.println("Enter title: ");
-            String title = inputReader.readLine();
+            String title =
+                    inputReader.readLine().trim();
 
             System.out.println("Enter DurationHours: ");
             float durationHours =
-                    Float.parseFloat(inputReader.readLine());
+                    Float.parseFloat(
+                            inputReader.readLine()
+                    );
 
             System.out.println("Enter fee: ");
             float fee =
-                    Float.parseFloat(inputReader.readLine());
+                    Float.parseFloat(
+                            inputReader.readLine()
+                    );
 
             System.out.println(
-                    "Enter tags: (separated by comma) "
+                    "Enter tags: (separated by comma or |)"
             );
 
-            String tagInput = inputReader.readLine();
+            String tagInput =
+                    inputReader.readLine();
 
-            List<String> tags = new ArrayList<>();
+            // =========================================
+            // XỬ LÝ TAG
+            // Nhận cả:
+            // SQLcore, SQLadvence
+            // SQLcore | SQLadvence
+            // SQLcore|SQLadvence
+            // =========================================
 
-            String[] tagArr = tagInput.split(",");
+            List<String> tags =
+                    parseTags(tagInput);
 
-            for (String tag : tagArr) {
+            Course course =
+                    new Course(
+                            id,
+                            title,
+                            durationHours,
+                            fee,
+                            tags
+                    );
 
-                String cleanTag = tag.trim();
-
-                if (!cleanTag.isEmpty()) {
-                    tags.add(cleanTag);
-                }
-            }
-
-            Course course = new Course(
-                    id,
-                    title,
-                    durationHours,
-                    fee,
-                    tags
-            );
-
+            // Thêm vào List
             courses.add(course);
 
+            // Lưu ngay xuống file
+            saveCoursesToFile();
+
             CourseLogger.add(
-                    "Added course: ID=" + course.getId()
+                    "Added course: ID=" +
+                            course.getId()
             );
 
             System.out.println(
@@ -92,6 +118,51 @@ public class CourseManagement {
                     "Error: " + e.getMessage()
             );
         }
+    }
+
+
+    // =========================================================
+    // PARSE TAGS
+    // =========================================================
+
+    private List<String> parseTags(String tagInput) {
+
+        List<String> tags =
+                new ArrayList<>();
+
+        if (tagInput == null ||
+                tagInput.trim().isEmpty()) {
+
+            return tags;
+        }
+
+        /*
+         * Nhận cả dấu "," và "|"
+         *
+         * Ví dụ:
+         *
+         * Java, Spring, SQL
+         *
+         * hoặc:
+         *
+         * Java | Spring | SQL
+         */
+
+        String[] tagArr =
+                tagInput.split("\\s*[|,]\\s*");
+
+        for (String tag : tagArr) {
+
+            String cleanTag =
+                    tag.trim();
+
+            if (!cleanTag.isEmpty()) {
+
+                tags.add(cleanTag);
+            }
+        }
+
+        return tags;
     }
 
 
@@ -120,7 +191,28 @@ public class CourseManagement {
 
         try {
 
-            Files.createDirectories(dataDir);
+            // Tạo thư mục data nếu chưa tồn tại
+            Files.createDirectories(
+                    dataDir
+            );
+
+            /*
+             * Ghi lại toàn bộ List courses.
+             *
+             * File cũ sẽ bị ghi đè.
+             *
+             * Nhưng không mất dữ liệu vì:
+             *
+             * file cũ
+             *      ↓
+             * loadCoursesFromFile()
+             *      ↓
+             * courses
+             *      ↓
+             * add/update/delete
+             *      ↓
+             * saveCoursesToFile()
+             */
 
             try (BufferedWriter bw =
                          Files.newBufferedWriter(file)) {
@@ -145,6 +237,7 @@ public class CourseManagement {
                         continue;
                     }
 
+                    // List<String> → String
                     String tags =
                             String.join(
                                     "|",
@@ -152,10 +245,14 @@ public class CourseManagement {
                             );
 
                     bw.write(
-                            course.getId() + " | " +
-                                    course.getTitle() + " | " +
-                                    course.getDurationHours() + " | " +
-                                    course.getFee() + " | " +
+                            course.getId() +
+                                    " | " +
+                                    course.getTitle() +
+                                    " | " +
+                                    course.getDurationHours() +
+                                    " | " +
+                                    course.getFee() +
+                                    " | " +
                                     tags
                     );
 
@@ -176,7 +273,7 @@ public class CourseManagement {
 
         } catch (Exception e) {
 
-            // Ghi vào save_course.txt + error.txt
+            // save_course.txt + error.txt
             CourseLogger.saveError(
                     "Failed to save courses to file: " +
                             file,
@@ -187,6 +284,125 @@ public class CourseManagement {
                     "Error: " + e.getMessage()
             );
         }
+    }
+
+
+    // =========================================================
+    // LOAD COURSES FROM FILE
+    // =========================================================
+
+    void loadCoursesFromFile() {
+
+        if (!Files.exists(file)) {
+
+            return;
+        }
+
+        try (BufferedReader br =
+                     Files.newBufferedReader(file)) {
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
+                /*
+                 * File format:
+                 *
+                 * ID | Title | Duration | Fee | Tags
+                 *
+                 * Ví dụ:
+                 *
+                 * 003 | SQL Programming | 6000.0 |
+                 * 50000000.0 | SQLcore|SQLadvence
+                 */
+
+                String[] data =
+                        line.split(
+                                "\\s*\\|\\s*",
+                                5
+                        );
+
+                if (data.length != 5) {
+
+                    CourseLogger.read(
+                            "Invalid course data: " +
+                                    line
+                    );
+
+                    continue;
+                }
+
+                // Xử lý tags
+                List<String> tags =
+                        parseFileTags(data[4]);
+
+                Course course =
+                        new Course(
+                                data[0],
+                                data[1],
+                                Float.parseFloat(data[2]),
+                                Float.parseFloat(data[3]),
+                                tags
+                        );
+
+                courses.add(course);
+            }
+
+            CourseLogger.read(
+                    "Loaded " +
+                            courses.size() +
+                            " courses from file."
+            );
+
+        } catch (Exception e) {
+
+            CourseLogger.readError(
+                    "Failed to load courses from file.",
+                    e
+            );
+
+            System.out.println(
+                    "Error: " + e.getMessage()
+            );
+        }
+    }
+
+
+    // =========================================================
+    // PARSE TAGS FROM FILE
+    // =========================================================
+
+    private List<String> parseFileTags(
+            String tagData) {
+
+        List<String> tags =
+                new ArrayList<>();
+
+        if (tagData == null ||
+                tagData.trim().isEmpty()) {
+
+            return tags;
+        }
+
+        String[] tagArr =
+                tagData.split("\\|");
+
+        for (String tag : tagArr) {
+
+            String cleanTag =
+                    tag.trim();
+
+            if (!cleanTag.isEmpty()) {
+
+                tags.add(cleanTag);
+            }
+        }
+
+        return tags;
     }
 
 
@@ -238,7 +454,8 @@ public class CourseManagement {
                 if (data.length != 5) {
 
                     System.out.println(
-                            "Invalid data: " + line
+                            "Invalid data: " +
+                                    line
                     );
 
                     CourseLogger.read(
@@ -249,18 +466,18 @@ public class CourseManagement {
                     continue;
                 }
 
+                // Đọc tags và trim
                 List<String> tags =
-                        List.of(
-                                data[4].split("\\|")
-                        );
+                        parseFileTags(data[4]);
 
-                Course course = new Course(
-                        data[0],
-                        data[1],
-                        Float.parseFloat(data[2]),
-                        Float.parseFloat(data[3]),
-                        tags
-                );
+                Course course =
+                        new Course(
+                                data[0],
+                                data[1],
+                                Float.parseFloat(data[2]),
+                                Float.parseFloat(data[3]),
+                                tags
+                        );
 
                 CourseLogger.read(
                         "Read course from file: ID=" +
@@ -272,7 +489,6 @@ public class CourseManagement {
 
         } catch (Exception e) {
 
-            // Ghi vào read_course.txt + error.txt
             CourseLogger.readError(
                     "Failed to read courses from file: " +
                             file,
@@ -287,7 +503,7 @@ public class CourseManagement {
 
 
     // =========================================================
-    // SEARCH COURSE
+    // SEARCH COURSE BY TAG
     // =========================================================
 
     void searchCoursesToFile() {
@@ -313,7 +529,8 @@ public class CourseManagement {
             if (!Files.exists(file)) {
 
                 System.out.println(
-                        "File not found: " + file
+                        "File not found: " +
+                                file
                 );
 
                 CourseLogger.search(
@@ -354,15 +571,15 @@ public class CourseManagement {
                         continue;
                     }
 
+                    // Đọc tag và trim
                     List<String> tags =
-                            List.of(
-                                    data[4].split("\\|")
-                            );
+                            parseFileTags(data[4]);
 
                     for (String tag : tags) {
 
                         if (tag.equalsIgnoreCase(
-                                searchTag)) {
+                                searchTag
+                        )) {
 
                             Course course =
                                     new Course(
@@ -377,9 +594,7 @@ public class CourseManagement {
                                             tags
                                     );
 
-                            System.out.println(
-                                    course
-                            );
+                            System.out.println(course);
 
                             CourseLogger.search(
                                     "Found course ID=" +
@@ -410,7 +625,6 @@ public class CourseManagement {
 
         } catch (Exception e) {
 
-            // Ghi vào search_course.txt + error.txt
             CourseLogger.searchError(
                     "Error while searching course from file.",
                     e
@@ -422,8 +636,3 @@ public class CourseManagement {
         }
     }
 }
-
-
-
-
-

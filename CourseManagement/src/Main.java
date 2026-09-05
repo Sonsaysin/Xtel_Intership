@@ -16,9 +16,8 @@ public class Main {
 
                 System.out.println("\n===== COURSE MANAGEMENT =====");
                 System.out.println("1. Add course");
-                System.out.println("2. Save courses");
-                System.out.println("3. Read and display courses");
-                System.out.println("4. Search course by tag");
+                System.out.println("2. Read and display courses");
+                System.out.println("3. Search course by tag");
                 System.out.println("0. Exit");
                 System.out.print("Choose: ");
 
@@ -31,14 +30,10 @@ public class Main {
                         break;
 
                     case "2":
-                        courseManagement.saveCoursesToFile();
-                        break;
-
-                    case "3":
                         courseManagement.readAndDisplay();
                         break;
 
-                    case "4":
+                    case "3":
                         courseManagement.searchCoursesToFile();
                         break;
 

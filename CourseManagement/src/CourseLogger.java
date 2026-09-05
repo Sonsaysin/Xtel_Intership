@@ -15,12 +15,6 @@ public class CourseLogger {
     private static final Logger ADD_LOGGER =
             createLogger("add_course", "logs/add_course.txt");
 
-    private static final Logger UPDATE_LOGGER =
-            createLogger("update_course", "logs/update_course.txt");
-
-    private static final Logger DELETE_LOGGER =
-            createLogger("delete_course", "logs/delete_course.txt");
-
     private static final Logger SEARCH_LOGGER =
             createLogger("search_course", "logs/search_course.txt");
 
@@ -82,14 +76,6 @@ public class CourseLogger {
 
     public static void add(String message) {
         ADD_LOGGER.info(message);
-    }
-
-    public static void update(String message) {
-        UPDATE_LOGGER.info(message);
-    }
-
-    public static void delete(String message) {
-        DELETE_LOGGER.info(message);
     }
 
     public static void search(String message) {
@@ -159,31 +145,6 @@ public class CourseLogger {
         );
     }
 
-
-    public static void updateError(
-            String message,
-            Exception e) {
-
-        logError(
-                UPDATE_LOGGER,
-                message,
-                e
-        );
-    }
-
-
-    public static void deleteError(
-            String message,
-            Exception e) {
-
-        logError(
-                DELETE_LOGGER,
-                message,
-                e
-        );
-    }
-
-
     public static void searchError(
             String message,
             Exception e) {
@@ -242,3 +203,4 @@ public class CourseLogger {
         );
     }
 }
+

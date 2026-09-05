@@ -1,1 +1,4 @@
-002 | SQL Programming | 500.0 | 6000000.0 | MySQL| SQLServer
+002 | SQL Programming | 500.0 | 6000000.0 | MySQL|SQLServer
+003 | SQL Programing | 6000.0 | 5.0E7 | SQLcore|SQLadvence
+004 | String Boot | 200.0 | 8.0E8 | Spring|SpringBoot|RestApi
+005 | Java Programing | 6000.0 | 5.0E8 | OOP|MultiThread
