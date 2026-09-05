@@ -30,10 +30,10 @@ public class QueueLogger {
             FileHandler fullAddHandler =
                     new FileHandler("logs/full_add.txt", true);
 
-            fullAddHandler.setFormatter(new SimpleFormatter());
+            fullAddHandler.setFormatter(new SimpleFormatter()); // tự động format
 
-            fullAddLogger.setUseParentHandlers(false);
-            fullAddLogger.addHandler(fullAddHandler);
+            fullAddLogger.setUseParentHandlers(false); // không cho in ra console
+            fullAddLogger.addHandler(fullAddHandler);// add vào file full_add.txt
 
             // =========================
             // EMPTY + REMOVE
