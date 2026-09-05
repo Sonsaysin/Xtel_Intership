@@ -19,8 +19,6 @@ public class Consumer implements Runnable {
 
                 // Lấy Message từ Queue
                 MessageC messageC = messageQueue.take();
-
-                Thread.sleep(100);
             }
 
         } catch (Exception e) {
