@@ -26,3 +26,28 @@ Sep 05, 2026 10:47:58 AM CourseLogger read
 INFO: Read course from file: ID=003
 Sep 05, 2026 10:47:58 AM CourseLogger read
 INFO: Read course from file: ID=004
+Sep 05, 2026 1:53:39 PM CourseLogger logError
+SEVERE: Failed to load courses from file.
+java.lang.NumberFormatException: For input string: "abc"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseFloat(FloatingDecimal.java:122)
+	at java.base/java.lang.Float.parseFloat(Float.java:556)
+	at CourseManagement.loadCoursesFromFile(CourseManagement.java:347)
+	at CourseManagement.<init>(CourseManagement.java:31)
+	at Main.main(Main.java:12)
+
+Sep 05, 2026 1:54:04 PM CourseLogger read
+INFO: Start reading courses from file.
+Sep 05, 2026 1:54:04 PM CourseLogger logError
+SEVERE: Failed to read courses from file: data/courses_data.txt
+java.lang.NumberFormatException: For input string: "abc"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseFloat(FloatingDecimal.java:122)
+	at java.base/java.lang.Float.parseFloat(Float.java:556)
+	at CourseManagement.readAndDisplay(CourseManagement.java:477)
+	at Main.main(Main.java:33)
+
+Sep 05, 2026 1:54:34 PM CourseLogger read
+INFO: Loaded 4 courses from file.
+Sep 05, 2026 1:55:25 PM CourseLogger read
+INFO: Loaded 4 courses from file.

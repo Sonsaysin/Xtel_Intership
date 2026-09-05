@@ -34,3 +34,9 @@ Sep 05, 2026 10:49:53 AM CourseLogger search
 INFO: Searching for tag=SQL
 Sep 05, 2026 10:49:53 AM CourseLogger search
 INFO: No course found with tag=SQL
+Sep 05, 2026 1:55:10 PM CourseLogger search
+INFO: Start searching course.
+Sep 05, 2026 1:55:14 PM CourseLogger search
+INFO: Searching for tag=JavaCore
+Sep 05, 2026 1:55:14 PM CourseLogger search
+INFO: Search failed. File not found: data/khongco/courses_data.txt
