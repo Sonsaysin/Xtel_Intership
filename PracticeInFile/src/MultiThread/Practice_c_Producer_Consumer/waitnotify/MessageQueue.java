@@ -25,12 +25,8 @@ public class MessageQueue {
             }
 
             // Thêm Message vào Queue
+            QueueLogger.add(messageC, messageCQueue.size());
             messageCQueue.add(messageC);
-
-            System.out.println(
-                    "[PRODUCER] Đã thêm: " + messageC
-                            + " | Queue size: " + messageCQueue.size()
-            );
 
             // Báo cho Consumer biết Queue đã có Message
             messageCQueue.notify();
@@ -48,12 +44,9 @@ public class MessageQueue {
             }
 
             // Lấy Message ra
+            QueueLogger.remove(messageC,);
             MessageC messageC = messageCQueue.poll();
 
-            System.out.println(
-                    "[CONSUMER] Đã lấy: " + messageC
-                            + " | Queue size: " + messageCQueue.size()
-            );
 
             // Báo cho Producer biết Queue đã có chỗ trống
             messageCQueue.notify();

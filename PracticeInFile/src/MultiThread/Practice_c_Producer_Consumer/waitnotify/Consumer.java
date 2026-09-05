@@ -20,15 +20,10 @@ public class Consumer implements Runnable {
                 // Lấy Message từ Queue
                 MessageC messageC = messageQueue.take();
 
-                // Xử lý: ở bài này là in ra màn hình
-                System.out.println(
-                        "[CONSUMER] Đang xử lý: " + messageC
-                );
             }
 
         } catch (Exception e) {
             QueueLogger.error(e);
-            System.out.println("Consumer đã dừng.");
         }
     }
 }

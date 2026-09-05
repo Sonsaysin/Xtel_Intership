@@ -26,14 +26,12 @@ public class Producer implements Runnable {
 
                 // Đưa Message vào Queue
                 messageQueue.put(messageC);
-
                 messageId++;
 
             }
 
         } catch (Exception e) {
             QueueLogger.error(e);
-            System.out.println("Producer đã dừng.");
         }
     }
 }
