@@ -1,3 +1,5 @@
+import logger.ChatLogger;
+
 import java.io.*;
 import java.net.Socket;
 // Xử lý client
@@ -46,6 +48,7 @@ public class ClientHandler extends Thread {
                 return;
             }
 
+            ChatLogger.server("User connected:" + username);
             // Cho vào group
             groupManager.join(this);
 
@@ -59,9 +62,8 @@ public class ClientHandler extends Thread {
 
         } catch (IOException e) {
 
-            System.out.println(
-                    username + " disconnected."
-            );
+            ChatLogger.chat(
+                    username + " disconnected." );
 
         } finally {
 
@@ -78,6 +80,10 @@ public class ClientHandler extends Thread {
 
         // Client yêu cầu rời phòng
         if (message.equalsIgnoreCase("/leave")) {
+
+            ChatLogger.server(
+                    "User " + username + " requested to leave."
+            );
 
             try {
                 socket.close();
@@ -105,7 +111,13 @@ public class ClientHandler extends Thread {
             return;
         }
 
-        // Gửi message đến các Client khác trong phòng
+        // Log message
+        ChatLogger.chat(
+                "User " + username +
+                        " sent message: " + message
+        );
+
+        // Gửi message đến các Client khác
         groupManager.broadcast(
                 "[" + username + "] " + message,
                 this

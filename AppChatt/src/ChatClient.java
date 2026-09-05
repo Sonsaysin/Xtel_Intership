@@ -3,15 +3,14 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-//kết nối tới Server, gửi dữ liệu lên Server và nhận dữ liệu từ Server.
+
     private static final String HOST = "localhost";
     private static final int PORT = 6666;
 
     public static void main(String[] args) {
 
         try (
-                Socket socket =
-                        new Socket(HOST, PORT);
+                Socket socket = new Socket(HOST, PORT);
 
                 BufferedReader reader =
                         new BufferedReader(
@@ -30,21 +29,20 @@ public class ChatClient {
                         new Scanner(System.in)
         ) {
 
-            // Thread nhận message
+            // Thread nhận message từ Server
             Thread receiver = new Thread(() -> {
 
                 try {
 
                     String message;
 
-                    while ((message =
-                            reader.readLine()) != null) {
-
+                    while ((message = reader.readLine()) != null) {
                         System.out.println(message);
                     }
 
                 } catch (IOException e) {
 
+                    // Client tự đóng socket thì không coi là error
                     System.out.println(
                             "Disconnected from server."
                     );
@@ -61,8 +59,7 @@ public class ChatClient {
             // Gửi message
             while (true) {
 
-                String message =
-                        scanner.nextLine();
+                String message = scanner.nextLine();
 
                 writer.println(message);
 
@@ -73,7 +70,9 @@ public class ChatClient {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            System.out.println(
+                    "Cannot connect to server."
+            );
         }
     }
 }

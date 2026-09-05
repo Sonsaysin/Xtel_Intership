@@ -1,15 +1,18 @@
-import java.io.IOException;
+import logger.ChatLogger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GroupManager {
+
     // Quản lý các Client
 
     private static final int MAX_USERS = 3;
 
-    private final List<ClientHandler> activeUsers = new ArrayList<>();
+    private final List<ClientHandler> activeUsers =
+            new ArrayList<>();
 
     private final BlockingQueue<ClientHandler> waitingQueue =
             new LinkedBlockingQueue<>();
@@ -23,13 +26,29 @@ public class GroupManager {
 
             client.setInRoom(true);
 
-            client.send("You joined the chat room.");
+            ChatLogger.chat(
+                    "User " + client.getUsername() +
+                            " joined the chat room"
+            );
 
-            broadcast(client.getUsername() + " joined the chat.");
+            client.send(
+                    "You joined the chat room."
+            );
+
+            broadcast(
+                    client.getUsername() +
+                            " joined the chat."
+            );
 
         } else {
 
             waitingQueue.offer(client);
+
+            ChatLogger.chat(
+                    "Room full. User " +
+                            client.getUsername() +
+                            " added to waiting queue"
+            );
 
             client.send(
                     "Chat room is full. You are waiting..."
@@ -40,16 +59,26 @@ public class GroupManager {
     // Client rời phòng
     public synchronized void leave(ClientHandler client) {
 
-        boolean removed = activeUsers.remove(client);
+        boolean removed =
+                activeUsers.remove(client);
 
         if (removed) {
 
             client.setInRoom(false);
 
-            broadcast(client.getUsername() + " left the chat.");
+            ChatLogger.chat(
+                    "User " + client.getUsername() +
+                            " left the chat room"
+            );
+
+            broadcast(
+                    client.getUsername() +
+                            " left the chat."
+            );
 
             // Có người đang chờ?
-            ClientHandler next = waitingQueue.poll();
+            ClientHandler next =
+                    waitingQueue.poll();
 
             if (next != null) {
 
@@ -57,12 +86,20 @@ public class GroupManager {
 
                 next.setInRoom(true);
 
+                ChatLogger.chat(
+                        "User " + next.getUsername() +
+                                " moved from waiting queue " +
+                                "to active room"
+                );
+
                 next.send(
-                        "A slot is available. You joined the chat room."
+                        "A slot is available. " +
+                                "You joined the chat room."
                 );
 
                 broadcast(
-                        next.getUsername() + " joined the chat."
+                        next.getUsername() +
+                                " joined the chat."
                 );
             }
 
@@ -70,6 +107,11 @@ public class GroupManager {
 
             // Client đang ở waiting queue
             waitingQueue.remove(client);
+
+            ChatLogger.chat(
+                    "User " + client.getUsername() +
+                            " left the waiting queue"
+            );
         }
     }
 
@@ -88,7 +130,9 @@ public class GroupManager {
     }
 
     // Broadcast thông báo hệ thống
-    public synchronized void broadcast(String message) {
+    public synchronized void broadcast(
+            String message
+    ) {
 
         for (ClientHandler client : activeUsers) {
             client.send(message);
@@ -99,16 +143,26 @@ public class GroupManager {
             ClientHandler requester
     ) {
 
-        requester.send("===== ACTIVE USERS =====");
+        requester.send(
+                "===== ACTIVE USERS ====="
+        );
 
         for (ClientHandler client : activeUsers) {
-            requester.send("- " + client.getUsername());
+
+            requester.send(
+                    "- " + client.getUsername()
+            );
         }
 
-        requester.send("===== WAITING USERS =====");
+        requester.send(
+                "===== WAITING USERS ====="
+        );
 
         for (ClientHandler client : waitingQueue) {
-            requester.send("- " + client.getUsername());
+
+            requester.send(
+                    "- " + client.getUsername()
+            );
         }
     }
 }

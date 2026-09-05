@@ -1,11 +1,13 @@
+import logger.ChatLogger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-// nhận client
+
+// Nhận client
 public class ChatServer {
 
-    private static final int PORT = 6666  ;
+    private static final int PORT = 6666;
 
     public static void main(String[] args) {
 
@@ -15,7 +17,8 @@ public class ChatServer {
         try (ServerSocket serverSocket =
                      new ServerSocket(PORT)) {
 
-            System.out.println(
+            // Server khởi động thành công
+            ChatLogger.server(
                     "Server started on port " + PORT
             );
 
@@ -24,10 +27,11 @@ public class ChatServer {
                 Socket socket =
                         serverSocket.accept();
 
-                System.out.println(
+                // Có client kết nối
+                ChatLogger.server(
                         "Client connected: "
                                 + socket.getInetAddress()
-                );  //Lấy địa chỉ Ip của client vừa kết nối
+                );
 
                 ClientHandler handler =
                         new ClientHandler(
@@ -40,7 +44,10 @@ public class ChatServer {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            ChatLogger.error(
+                    "Failed to start server",
+                    e
+            );
         }
     }
 }
